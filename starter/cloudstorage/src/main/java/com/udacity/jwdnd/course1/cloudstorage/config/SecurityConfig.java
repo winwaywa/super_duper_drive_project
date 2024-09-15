@@ -37,6 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .defaultSuccessUrl("/home", true);
 
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
+
         // Cấu hình để không chặn nội dung iframe của H2 Console
         http.headers().frameOptions().sameOrigin();
         // Tắt tính năng CSRF với H2 Console (bắt buộc nếu không sẽ bị lỗi)
