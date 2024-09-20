@@ -29,7 +29,7 @@ public class FileController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Lỗi không xác định khi upload file!");
         }
-        return "redirect:/home";
+        return "redirect:/home?activeTab=files";
     }
 
     @GetMapping("/download/{fileId}")
@@ -48,14 +48,14 @@ public class FileController {
     }
 
     @PostMapping("/delete/{fileId}")
-    public String deleteFile(@PathVariable int fileId, RedirectAttributes redirectAttributes) {
+    public String deleteFile(@PathVariable Integer fileId, RedirectAttributes redirectAttributes) {
         try {
             fileService.deleteFileById(fileId);
             redirectAttributes.addFlashAttribute("isSuccess", true);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Lỗi không xác định khi xóa file!");
         }
-        return "redirect:/home";
+        return "redirect:/home?activeTab=files";
     }
 
 }

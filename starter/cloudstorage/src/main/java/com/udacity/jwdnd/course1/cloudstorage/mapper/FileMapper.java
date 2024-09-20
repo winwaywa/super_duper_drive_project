@@ -10,10 +10,10 @@ public interface FileMapper {
     File[] getFilesByUserId(int userid);
 
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
-    File getFileById(int fileId);
+    File getFileById(Integer fileId);
 
     @Delete("DELETE FROM FILES WHERE fileId = #{fileId} AND userid = #{userid}")
-    void deleteFileById(int fileId, int userid);
+    void deleteFileById(Integer fileId, int userid);
 
     @Insert("INSERT INTO FILES(filename, contenttype, filesize, userid, filedata) VALUES(#{fileName}, #{contentType}, #{fileSize}, #{userid}, #{fileData})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")

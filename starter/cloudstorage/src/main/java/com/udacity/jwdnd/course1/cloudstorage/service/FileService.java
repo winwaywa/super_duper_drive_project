@@ -21,11 +21,11 @@ public class FileService {
     @Autowired
     UserMapper userMapper;
 
-    public File getFileById(int fileId) {
+    public File getFileById(Integer fileId) {
         return fileMapper.getFileById(fileId);
     }
 
-    public void deleteFileById(int fileId) {
+    public void deleteFileById(Integer fileId) {
         int currentUserId = getCurrentUserId();
         fileMapper.deleteFileById(fileId, currentUserId);
     }
