@@ -89,13 +89,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr th:each="note: ${allNotes}">
                                         <td>
-                                            <button type="button" class="btn btn-success">Edit</button>
-                                            <a class="btn btn-danger">Delete</a>
+                                            <button type="button" class="btn btn-success"  th:onclick="showNoteModal([[${note.noteId}]], [[${note.noteTitle}]], [[${note.noteDescription}]])">Edit</button>
+                                            <form class="d-inline-block" th:action="@{/notes/delete/{noteId}(noteId=${note.noteId})}" method="POST">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
                                         </td>
-                                        <th scope="row">Example Note Title</th>
-                                        <td>Example Note Description </td>
+                                        <th scope="row" th:text="${note.noteTitle}"></th>
+                                        <td th:text="${note.noteDescription}"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -111,7 +113,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" method="POST">
+                                        <form action="#" method="POST" th:action="@{/notes/insert-or-update}">
                                             <input type="hidden" name="noteId" id="note-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
@@ -206,6 +208,18 @@
 
         <!--For opening the note modal-->
         <script type="text/javascript">
+            $(document).ready(function () {
+                // Lấy giá trị của query parameter activeTab từ URL
+                const urlParams = new URLSearchParams(window.location.search);
+                let activeTab = urlParams.get('activeTab');
+                if (activeTab == null)
+                  activeTab = "files";
+                $('.nav-item.nav-link').removeClass('active'); // Bỏ active cho tất cả các tab
+                $('.tab-pane').removeClass('show active'); // Ẩn nội dung của các tab
+                $('#nav-' + activeTab + '-tab').addClass('active'); // Kích hoạt tab tương ứng
+                $('#nav-' + activeTab).addClass('show active'); // Hiển thị nội dung của tab tương ứng
+           });
+
             // For opening the note modal
             function showNoteModal(noteId, noteTitle, noteDescription) {
                 $('#note-id').val(noteId ? noteId : '');
