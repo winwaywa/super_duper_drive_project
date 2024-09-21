@@ -26,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/h2-console/**","/signup", "/css/**", "/js/**").permitAll()
+                .antMatchers("/signup", "/css/**", "/js/**").permitAll()
+                //.antMatchers("/h2-console/**","/signup", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated();
 
         // redirect to "/login" in Controller
@@ -43,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         // Cấu hình để không chặn nội dung iframe của H2 Console
-        http.headers().frameOptions().sameOrigin();
+        // http.headers().frameOptions().sameOrigin();
         // Tắt tính năng CSRF với H2 Console (bắt buộc nếu không sẽ bị lỗi)
-        http.csrf().disable();
+        // http.csrf().disable();
 
     }
 

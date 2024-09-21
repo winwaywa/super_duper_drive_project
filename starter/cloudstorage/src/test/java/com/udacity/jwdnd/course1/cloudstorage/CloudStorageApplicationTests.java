@@ -23,7 +23,7 @@ class CloudStorageApplicationTests {
 
 	@BeforeAll
 	static void beforeAll() {
-		WebDriverManager.chromedriver().setup();
+		WebDriverManager.chromedriver().browserVersion("129.0.6668.59").setup();
 	}
 
 	@BeforeEach
