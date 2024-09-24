@@ -34,6 +34,9 @@ public class FileService {
         if (file.isEmpty()) {
             throw new IllegalStateException("File không hợp lệ hoặc chưa được chọn.");
         }
+        if (isExistFileName(file.getOriginalFilename())) {
+            throw new IllegalStateException("Duplicate file name !");
+        }
         int currentUserId = getCurrentUserId();
         File newFile = new File();
         newFile.setFileName(file.getOriginalFilename());
@@ -54,5 +57,9 @@ public class FileService {
         String username = (String) authentication.getPrincipal();
 
         return userMapper.getUser(username).getUserId();
+    }
+
+    private boolean isExistFileName(String fileName){
+        return fileMapper.getFileByName(fileName) != null;
     }
 }
